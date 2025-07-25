@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact • Autocode.IDE</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #11161d;
+      --surface: #1a212b;
+      --surface-dark: #151b23;
+      --text: #e6ebf2;
+      --text-dim: #b6c0cf;
+      --primary: #3b82f6;
+      --primary-600: #2563eb;
+      --outline: #2a3240;
+      --ring: rgba(59,130,246,.35);
+      --maxw: 1120px;
+      --radius: 14px;
+      --transition: 180ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+    }
+
+    /* Back to home */
+    .back-home{
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+      background: var(--surface-dark);
+      border: 1px solid rgba(255,255,255,0.05);
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 9999px;
+      font-size: .9rem;
+      transition: all var(--transition);
+    }
+    .back-home:hover{
+      color:#fff;
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .card{
+      width: 100%;
+      max-width: 480px;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 40px -24px rgba(0,0,0,.6);
+      padding: 42px 34px 34px;
+      text-align: center;
+      position: relative;
+    }
+
+    .card h1{
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    form{
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .field{
+      width: 100%;
+      background: var(--surface-dark);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 9999px;
+      padding: 13px 18px;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+    textarea.field{
+      border-radius: 16px;
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .field:focus{
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--ring);
+      background: #182029;
+    }
+
+    .btn{
+      border: 0;
+      border-radius: 9999px;
+      padding: 13px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      color: #fff;
+      /* keep the button as the only colorful element */
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-600) 100%);
+      box-shadow: 0 8px 18px -8px var(--ring);
+      margin-top: 6px;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px -10px var(--ring);
+    }
+
+    .foot-note{
+      margin-top: 14px;
+      font-size: .85rem;
+      color: var(--text-dim);
+    }
+
+    .start-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  text-decoration: none;
+  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 12px -4px rgba(59, 130, 246, 0.5);
+}
+.start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -6px rgba(59, 130, 246, 0.6);
+}
+
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-home">← Back to Home</a>
+  <a href="PY.html" class="start-btn">Start</a>
+
+
+  <div class="card" role="form">
+    <h1>Contact Us</h1>
+
+    <form action="#" method="post">
+      <input type="text" class="field" name="name" placeholder="Your Name" required>
+      <input type="email" class="field" name="email" placeholder="Your Email" required>
+      <textarea class="field" name="message" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+
+    <p class="foot-note">We’ll get back to you within 24 hours.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About • Autocode.IDE</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #11161d;
+      --surface: #1a212b;
+      --surface-dark: #151b23;
+      --text: #e6ebf2;
+      --text-dim: #b6c0cf;
+      --primary: #3b82f6;
+      --primary-600: #2563eb;
+      --outline: #2a3240;
+      --ring: rgba(59,130,246,.35);
+      --maxw: 1120px;
+      --radius: 14px;
+      --transition: 180ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* Fixed utility buttons */
+    .back-home{
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+      background: var(--surface-dark);
+      border: 1px solid rgba(255,255,255,0.05);
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 9999px;
+      font-size: .9rem;
+      transition: all var(--transition);
+      z-index: 20;
+    }
+    .back-home:hover{
+      color:#fff;
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .start-btn{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      text-decoration: none;
+      background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 6px 12px -4px rgba(59,130,246,0.5);
+      z-index: 20;
+    }
+    .start-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -6px rgba(59,130,246,0.6);
+    }
+
+    main{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 120px 20px 80px;
+    }
+
+    header.page-head{
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    header.page-head h1{
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    header.page-head p{
+      margin-top: 12px;
+      color: var(--text-dim);
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    section{
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 40px -24px rgba(0,0,0,.6);
+      padding: 32px 28px;
+      margin-bottom: 24px;
+    }
+
+    section h2{
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+
+    section p{
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    .credits ul{
+      margin-left: 18px;
+      color: var(--text-dim);
+    }
+
+    /* Mini table of contents */
+    .toc{
+      display: flex;
+      gap: 12px 18px;
+      flex-wrap: wrap;
+      margin: 0 auto 32px;
+      max-width: 780px;
+      justify-content: center;
+    }
+    .toc a{
+      color: var(--text-dim);
+      font-size: .9rem;
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 9999px;
+      transition: all var(--transition);
+      background: var(--surface-dark);
+    }
+    .toc a:hover{
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Small footer */
+    footer{
+      color: var(--text-dim);
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 32px 20px 60px;
+    }
+    footer a{
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-home">← Back to Home</a>
+  <a href="PY.html" class="start-btn">Start</a>
+
+  <main>
+    <header class="page-head">
+      <h1>About Autocode.IDE</h1>
+      <p>A quick look at why we built it, how it works, and what we learned along the way.</p>
+    </header>
+
+    <!-- Table of contents -->
+    <nav class="toc">
+      <a href="#introduction">Introduction</a>
+      <a href="#inspiration">Inspiration</a>
+      <a href="#what-it-does">What it does</a>
+      <a href="#how-we-built-it">How we built it</a>
+      <a href="#challenges">Challenges</a>
+      <a href="#what-we-learned">What we learned</a>
+      <a href="#credits">Credits</a>
+    </nav>
+
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p>
+        Autocode.IDE is an AI‑powered development environment designed to help beginners code faster,
+        learn better, and deploy confidently — across any language or stack.
+      </p>
+    </section>
+
+    <section id="inspiration">
+      <h2>Inspiration</h2>
+      <p>
+        We were inspired by the friction beginners face when switching between tools, languages,
+        documentation, and deployment pipelines. We wanted one cohesive space that does the heavy lifting.
+      </p>
+    </section>
+
+    <section id="what-it-does">
+      <h2>What it does</h2>
+      <p>
+        Autocode.IDE provides intelligent code generation, translation between languages, neural network
+        scaffolding, and one‑click deployment. It also includes a dashboard‑style UX for focus and flow.
+      </p>
+    </section>
+
+    <section id="how-we-built-it">
+      <h2>How we built it</h2>
+      <p>
+        The stack includes a modular frontend powered by Web Components / React (depending on
+        deployment), a lightweight API layer for orchestration, and OpenAI models to power
+        generation, explanations, and translation.
+      </p>
+      <p>
+        We iterated rapidly with component-driven UI, implemented feature flags for experimentation, and
+        kept strong observability on latency and model performance.
+      </p>
+    </section>
+
+    <section id="challenges">
+      <h2>Challenges</h2>
+      <p>
+        - Balancing guidance with autonomy for learners.<br>
+        - Handling multilingual code generation safely and consistently.<br>
+        - Optimizing cost and latency while maintaining high-quality completions.<br>
+        - Designing an interface that feels powerful yet non-intimidating.
+      </p>
+    </section>
+
+    <section id="what-we-learned">
+      <h2>What we learned</h2>
+      <p>
+        - Good UX dramatically reduces cognitive load for beginners.<br>
+        - Clear, structured prompts (and good prompt tooling) are essential.<br>
+        - Real-time feedback loops make AI coding feel natural and trustworthy.<br>
+        - Strong evals and guardrails are mandatory for production-grade AI tools.
+      </p>
+    </section>
+
+    <section id="credits" class="credits">
+      <h2 style="color:#72f3fc">Credits</h2>
+      <p>Built with ❤️ by the Autocode.IDE team.</p>
+      <ul>
+        <li>Fullstack Programmer — Owen Benedict Tanjung</li>
+        <li>UI/UX Designer — Dave Alexander Jayadi</li>
+        <li>Fullstack Debugger — Leonard Karyadi</li>
+        <li>AI-Asisted Programmer — Declan Elchanan Ponimin</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Autocode.IDE — <a href="index.html">Home</a>
+  </footer>
+
+</body>
+</html>

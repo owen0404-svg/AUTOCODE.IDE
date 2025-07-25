@@ -1,0 +1,205 @@
+<!-- BEGINNING OF HTML DOCUMENT -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AUTOCODE.IDE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/material-darker.min.css"/>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { display: flex; height: 100vh; background-color: #1e1e1e; font-family: 'Segoe UI', sans-serif; color: #fff; }
+
+    .sidebar {
+      width: 240px; background-color: #1b1b1d; border-right: 1px solid #2d2d2d;
+      padding: 1.5rem 1rem; display: flex; flex-direction: column;
+    }
+    .sidebar h2 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+    .sidebar p { font-size: 0.8rem; color: #aaa; margin-bottom: 1rem; }
+    .nav-menu, .language-select { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .nav-menu a, .language-select select {
+      background: #29292d; color: #fff; border: 1px solid #3a3a3d;
+      padding: 0.6rem 1rem; border-radius: 6px; font-size: 0.9rem;
+    }
+
+    .main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+
+    .topbar {
+      background-color: #2b2b2d; padding: 0.75rem 1rem;
+      display: flex; justify-content: space-between; font-size: 0.9rem;
+      border-bottom: 1px solid #3a3a3d;
+    }
+
+    .run-btn {
+      position: relative;
+      padding: 8px 16px;
+      background: #444;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 4px;
+      z-index: 0;
+    }
+    .run-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: #242424;
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+    .run-btn:hover::before { left: 0; }
+    .run-btn:hover { color: #fff; }
+
+    textarea {
+  width: 100%;
+  height: 350%;
+  background: #111;
+  color: #0f0;
+  padding: 10px;
+  font-family: monospace;
+  border: 1px solid #1e1e1e;
+  border-radius: 6px;
+  resize: none;
+}
+
+
+    .translator-container {
+      padding: 1rem;
+      background: #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .translator-title {
+      color: #00ffff;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .translator-wrapper {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .translator-column {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .translator-label {
+      color: #aaa;
+    }
+
+    .inline-buttons {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 10px;
+    }
+
+    .run-btn.translate {
+      background: #007acc;
+    }
+
+    #langLabel {
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <a href="index.html"><img src="logoautocode.png" alt="AUTOCODE.IDE Logo" style="height: 85%;width:100%;" /></a>
+    <p>AI-powered code editor</p>
+    <div class="language-select">
+      <label id="langLabel" for="lang">Other Languages:</label>
+      <select id="lang" onchange="changeLanguage(this.value)">
+        <option value="htmlmixed">Coming Soon...</option>
+      </select>
+    </div>
+    <nav class="nav-menu">
+  <a href="PY.html" style="text-decoration: none;">Programming IDE ⇄</a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" style="text-decoration: none;">HTML Docs</a>
+  <a href="https://docs.python.org/3/" target="_blank" style="text-decoration: none;">Python Docs</a>
+  <a href="https://cppreference.com/" target="_blank" style="text-decoration: none;">C++ Docs</a>
+</nav>
+  </div>
+
+  <div class="main">
+    <div class="topbar"><span>Code Translator</span><span></span></div>
+
+    <div class="translator-container">
+      <h2 class="translator-title">Code Translator – C++ ⇄ Python</h2>
+      <div class="translator-wrapper">
+        <div class="translator-column">
+          <label id="fromLabel" class="translator-label">C++</label>
+          <textarea id="inputCode" placeholder="Enter your code..."></textarea>
+          <!-- Buttons under C++ textarea -->
+          <div class="inline-buttons">
+            <button onclick="flipDirection()" class="run-btn">⇆ Flip</button>
+            <button onclick="translateCode()" class="run-btn translate">Translate</button>
+          </div>
+        </div>
+        <div class="translator-column">
+          <label id="toLabel" class="translator-label">Python</label>
+          <textarea id="outputCode" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let direction = "cpp-to-py";
+
+    function flipDirection() {
+      direction = direction === "cpp-to-py" ? "py-to-cpp" : "cpp-to-py";
+      document.getElementById("fromLabel").innerText = direction === "cpp-to-py" ? "C++" : "Python";
+      document.getElementById("toLabel").innerText = direction === "cpp-to-py" ? "Python" : "C++";
+
+      const input = document.getElementById("inputCode").value;
+      const output = document.getElementById("outputCode").value;
+      document.getElementById("inputCode").value = output;
+      document.getElementById("outputCode").value = input;
+    }
+
+    async function translateCode() {
+      const inputCode = document.getElementById("inputCode").value.trim();
+      const output = document.getElementById("outputCode");
+
+      if (!inputCode) {
+        output.value = "Please enter code to translate.";
+        return;
+      }
+
+      output.value = "Translating...";
+
+      const prompt = `Translate the following ${direction === "cpp-to-py" ? "C++" : "Python"} code to ${direction === "cpp-to-py" ? "Python" : "C++"}.\nOutput ONLY the translated code:\n\n${inputCode}`;
+
+      try {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer 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", // Replace this with your API key
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            model: "gpt-4",
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0
+          })
+        });
+
+        const data = await response.json();
+        output.value = data.choices?.[0]?.message?.content?.trim() || "Translation error:\n" + JSON.stringify(data, null, 2);
+      } catch (err) {
+        output.value = "Error: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
